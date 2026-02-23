@@ -1,18 +1,27 @@
 package com.example;
 
+<<<<<<< HEAD
 import com.example.model.Equipement;
 import com.example.model.Reservation;
 import com.example.model.Salle;
 import com.example.model.Utilisateur;
+=======
+import com.example.model.Produit;
+>>>>>>> 74f70ff38d710340c8a7b318b06fb6b04dc04f25
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+<<<<<<< HEAD
 import java.time.LocalDateTime;
+=======
+import java.math.BigDecimal;
+>>>>>>> 74f70ff38d710340c8a7b318b06fb6b04dc04f25
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
+<<<<<<< HEAD
         // Create the EntityManagerFactory
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestion-reservations");
 
@@ -37,10 +46,27 @@ public class App {
     }
 
     private static void testRelationsEtCascade(EntityManagerFactory emf) {
+=======
+        // Création de l'EntityManagerFactory
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate-demo");
+
+        // Insertion de produits
+        insererProduits(emf);
+
+        // Lecture des produits
+        lireProduits(emf);
+
+        // Fermeture de l'EntityManagerFactory
+        emf.close();
+    }
+
+    private static void insererProduits(EntityManagerFactory emf) {
+>>>>>>> 74f70ff38d710340c8a7b318b06fb6b04dc04f25
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
 
+<<<<<<< HEAD
             // Create entities
             System.out.println("Creating entities...");
 
@@ -82,6 +108,20 @@ public class App {
             System.out.println("Room: " + sallePersistee);
             System.out.println("Reservation count: " + sallePersistee.getReservations().size());
 
+=======
+            // Création de quelques produits
+            Produit p1 = new Produit("Laptop", new BigDecimal("999.99"));
+            Produit p2 = new Produit("Smartphone", new BigDecimal("499.99"));
+            Produit p3 = new Produit("Tablette", new BigDecimal("299.99"));
+
+            // Persistance des produits
+            em.persist(p1);
+            em.persist(p2);
+            em.persist(p3);
+
+            em.getTransaction().commit();
+            System.out.println("Produits insérés avec succès !");
+>>>>>>> 74f70ff38d710340c8a7b318b06fb6b04dc04f25
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
@@ -92,6 +132,7 @@ public class App {
         }
     }
 
+<<<<<<< HEAD
     private static void testSuppressionOrpheline(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -157,10 +198,33 @@ public class App {
                 em.getTransaction().rollback();
             }
             e.printStackTrace();
+=======
+    private static void lireProduits(EntityManagerFactory emf) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Requête JPQL pour récupérer tous les produits
+            List<Produit> produits = em.createQuery("SELECT p FROM Produit p", Produit.class)
+                    .getResultList();
+
+            System.out.println("\nListe des produits :");
+            for (Produit produit : produits) {
+                System.out.println(produit);
+            }
+
+            // Recherche d'un produit par ID
+            System.out.println("\nRecherche du produit avec ID=2 :");
+            Produit produit = em.find(Produit.class, 2L);
+            if (produit != null) {
+                System.out.println(produit);
+            } else {
+                System.out.println("Produit non trouvé");
+            }
+>>>>>>> 74f70ff38d710340c8a7b318b06fb6b04dc04f25
         } finally {
             em.close();
         }
     }
+<<<<<<< HEAD
 
     private static void testRelationManyToMany(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
@@ -253,3 +317,6 @@ public class App {
         }
     }
 }
+=======
+}
+>>>>>>> 74f70ff38d710340c8a7b318b06fb6b04dc04f25
